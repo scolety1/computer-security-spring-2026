@@ -1,36 +1,30 @@
----
-title: CSCI 476 Setup
----
+# Flask Coursework Example
 
-# Install `uv`
+A tutorial-based SQLite blog with registration, login, and create/edit/delete post flows. The foundation is the [Pallets Flask tutorial](https://flask.palletsprojects.com/en/stable/tutorial/), whose credit and [license](LICENSE.txt) remain authoritative. This is a learning example, not an original production security framework.
 
-On Linux/macOS:
-```
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
+## Read the code
 
-On Windows:
-```
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-```
+- [Application factory](flaskr/__init__.py), [database setup](flaskr/db.py), and [schema](flaskr/schema.sql).
+- [Authentication](flaskr/auth.py) and [blog routes](flaskr/blog.py).
+- [Tests](tests/) covering factory, database, authentication, and post behavior.
 
+## Run locally
 
-Alternatively, follow the instructions on the official `uv` site: [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
+With Python and `uv`, from the repository root:
 
-# Run flaskr
-
-In the `flaskr_tutorial` directory, you can use `uv` to initialize the database and run the web app.
-
-## Initialize the database
-
-```
-uv run flask --app flaskr init-db
+```sh
+uv run --no-project --with flask flask --app flaskr init-db
+uv run --no-project --with flask flask --app flaskr run --host 127.0.0.1 --port 5000
 ```
 
-## Start the web server
+Database initialization resets the local tutorial database. Use only disposable synthetic data. The development secret is a tutorial placeholder; this setup is not intended for public deployment.
 
-```
-uv run flask --app flaskr run --debug --host 127.0.0.1 --port 5000
+```sh
+uv run --no-project --with flask --with pytest python -m pytest -q
 ```
 
-You can now access the app by browsing to http://127.0.0.1:5000
+Verified November 14, 2026: 24 tests passed. `--no-project` avoids the current package metadata's missing `README.rst` reference; packaging is not certified.
+
+## Contribution and scope
+
+Collected by Spencer Colety. This archive includes coursework, examples, or starter material; the bulk-upload history does not establish sole authorship of individual methods. Preserve source credits and course-sharing restrictions. This README update was AI-assisted and does not change the exercise code.
