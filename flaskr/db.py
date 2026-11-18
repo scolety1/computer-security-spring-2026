@@ -4,6 +4,7 @@ from datetime import datetime
 import click
 from flask import current_app
 from flask import g
+from flask.cli import with_appcontext
 
 
 def get_db():
@@ -39,6 +40,7 @@ def init_db():
 
 
 @click.command("init-db")
+@with_appcontext
 def init_db_command():
     """Clear existing data and create new tables."""
     init_db()
@@ -54,3 +56,4 @@ def init_app(app):
     """
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+
