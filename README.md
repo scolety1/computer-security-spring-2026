@@ -10,21 +10,24 @@ A tutorial-based SQLite blog with registration, login, and create/edit/delete po
 
 ## Run locally
 
-With Python and `uv`, from the repository root:
+With Python 3.11 or later, from the repository root, create and activate a virtual environment, then install the local package:
 
 ```sh
-uv run --no-project --with flask flask --app flaskr init-db
-uv run --no-project --with flask flask --app flaskr run --host 127.0.0.1 --port 5000
+python -m pip install '.[test]'
+python -m flask --app flaskr init-db
+python -m flask --app flaskr run --host 127.0.0.1 --port 5000
 ```
 
 Database initialization resets the local tutorial database. Use only disposable synthetic data. The development secret is a tutorial placeholder; this setup is not intended for public deployment.
 
 ```sh
-uv run --no-project --with flask --with pytest python -m pytest -q
+python -m pytest -q
+python -m build --no-isolation
 ```
 
-Verified November 14, 2026: 24 tests passed. `--no-project` avoids the current package metadata's missing `README.rst` reference; packaging is not certified.
+Local repair verification, November 18, 2026: the original 24 tests plus two added packaging/CLI regressions pass (26 total) on Python 3.12. The package metadata now references the supplied Markdown README. The CLI regression uses real disposable SQLite tables rather than mocking database initialization. These checks do not certify production security or Windows behavior.
 
 ## Contribution and scope
 
-Collected by Spencer Colety. This archive includes coursework, examples, or starter material; the bulk-upload history does not establish sole authorship of individual methods. Preserve source credits and course-sharing restrictions. This README update was AI-assisted and does not change the exercise code.
+Collected by Spencer Colety. This archive includes coursework, examples, or starter material; the bulk-upload history does not establish sole authorship of individual methods. Preserve source credits and course-sharing restrictions. The November 2026 packaging metadata correction, CLI application-context repair, added regressions, and this documentation update are AI-assisted maintenance, not original hand-coded coursework. Pallets attribution is preserved. The package remains marked `Private :: Do Not Upload`; build artifacts are for local verification, not package-index publication.
+
